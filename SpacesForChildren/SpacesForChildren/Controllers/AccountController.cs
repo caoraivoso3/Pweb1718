@@ -148,6 +148,7 @@ namespace SpacesForChildren.Controllers {
                     {
                         UserName = model.Email,
                         Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
                         //Added 
                         Name = model.Name,
                         NIF = model.NIF,
@@ -165,13 +166,17 @@ namespace SpacesForChildren.Controllers {
                     {
                         UserName = model.Email,
                         Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
                         //Added
                         Name = model.Name,
                         NIF = model.NIF,
                         Address = model.Address,
-                        City = model.City
+                        City = model.City,
 
                         //Specific Role Fields
+                        Type = 0,
+                        Description = "",
+                        IsApproved = true
                     };
                     db.Institutions.Add(institution);
                     user = institution;

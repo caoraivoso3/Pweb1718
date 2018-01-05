@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using SpacesForChildren.Controllers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,6 +23,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Instituições","Index","Institutions")</li>
+                    @if (User.IsInRole("Pai"))
+                    {
+                    <li>@Html.ActionLink("Filho", "Index", "Children")</li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

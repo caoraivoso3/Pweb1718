@@ -8,24 +8,11 @@ using System.Web;
 
 namespace SpacesForChildren.Models {
 
-    public enum EInstituitionType {
-        Public,
-        Private,
-        IPSS
-    };
-
     [Table("Institution")]
     public class Institution : ApplicationUser {
-        public Institution() {
-            //Services = new HashSet<Service>();    
-        }
-
 
         [Required]
         public EInstituitionType Type { get; set; }
-
-        [Required]
-        public string Acronym { get; set; }
 
         [Required]
         public string Description { get; set; }

@@ -8,6 +8,12 @@ namespace SpacesForChildren.Models
         Feminino
     }
 
+    public enum EInstituitionType {
+        Public,
+        Private,
+        IPSS
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

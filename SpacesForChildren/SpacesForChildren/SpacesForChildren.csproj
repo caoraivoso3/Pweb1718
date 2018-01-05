@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -224,6 +225,18 @@
     <Compile Include="Migrations\201801050052587_databaseRevisionV6.Designer.cs">
       <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801051208114_modelUpdate.cs" />
+    <Compile Include="Migrations\201801051208114_modelUpdate.Designer.cs">
+      <DependentUpon>201801051208114_modelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801051210095_modelUpdatev7.cs" />
+    <Compile Include="Migrations\201801051210095_modelUpdatev7.Designer.cs">
+      <DependentUpon>201801051210095_modelUpdatev7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801051233442_modelUpdatev8.cs" />
+    <Compile Include="Migrations\201801051233442_modelUpdatev8.Designer.cs">
+      <DependentUpon>201801051233442_modelUpdatev8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -241,9 +254,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DefaultConnection.mdf" />
-    <Content Include="App_Data\DefaultConnection_log.ldf">
-      <DependentUpon>DefaultConnection.mdf</DependentUpon>
+    <Content Include="App_Data\TrabalhoPratico.mdf" />
+    <Content Include="App_Data\TrabalhoPratico_log.ldf">
+      <DependentUpon>TrabalhoPratico.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -306,16 +319,18 @@
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
-    <Content Include="Views\Parents\Create.cshtml" />
     <Content Include="Views\Parents\Delete.cshtml" />
     <Content Include="Views\Parents\Details.cshtml" />
     <Content Include="Views\Parents\Edit.cshtml" />
     <Content Include="Views\Parents\Index.cshtml" />
-    <Content Include="Views\Institutions\Create.cshtml" />
     <Content Include="Views\Institutions\Delete.cshtml" />
     <Content Include="Views\Institutions\Details.cshtml" />
     <Content Include="Views\Institutions\Edit.cshtml" />
     <Content Include="Views\Institutions\Index.cshtml" />
+    <Content Include="Views\Children\Create.cshtml" />
+    <Content Include="Views\Children\Delete.cshtml" />
+    <Content Include="Views\Children\Details.cshtml" />
+    <Content Include="Views\Children\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -349,6 +364,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801050052587_databaseRevisionV6.resx">
       <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051208114_modelUpdate.resx">
+      <DependentUpon>201801051208114_modelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051210095_modelUpdatev7.resx">
+      <DependentUpon>201801051210095_modelUpdatev7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051233442_modelUpdatev8.resx">
+      <DependentUpon>201801051233442_modelUpdatev8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
