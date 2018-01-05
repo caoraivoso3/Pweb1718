@@ -74,12 +74,6 @@ namespace SpacesForChildren
             var roleManager = new RoleManager<IdentityRole>(
                 new RoleStore<IdentityRole>(context));
 
-            if (!roleManager.RoleExists(Profiles.Admin)) {
-                var role = new IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
-            }
-
             if (!roleManager.RoleExists(Profiles.Institution)) {
                 var role = new IdentityRole();
                 role.Name = "Institution";
@@ -89,7 +83,7 @@ namespace SpacesForChildren
             if (!roleManager.RoleExists(Profiles.Parent)) {
                 var role = new IdentityRole();
                 role.Name = "Parent";
-
+                roleManager.Create(role);
             }
         }
     }

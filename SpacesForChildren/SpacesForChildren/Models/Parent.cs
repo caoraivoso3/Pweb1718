@@ -6,12 +6,12 @@ using System.Linq;
 using System.Web;
 
 namespace SpacesForChildren.Models {
+
     [Table("Parent")]
     public class Parent : ApplicationUser{
 
-
         [Required]
-        public string Gender { get; set; }
+        public EGender Gender { get; set; }
 
         public virtual ICollection<Child> Childrens { get; set; }
         public virtual ICollection<RequestInfo> Requests { get; set; }

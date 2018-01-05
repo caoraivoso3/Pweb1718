@@ -10,8 +10,9 @@ namespace SpacesForChildren.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
-        public int FiscalId { get; set; }
+        public int NIF { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -34,10 +35,10 @@ namespace SpacesForChildren.Models
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Child> Child { get; set; }
         public DbSet<Contract> Contract { get; set; }
-        public DbSet<Local> Local { get; set; }
         public DbSet<RequestInfo> RequestInfo { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Service> Service { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         public static ApplicationDbContext Create()
         {

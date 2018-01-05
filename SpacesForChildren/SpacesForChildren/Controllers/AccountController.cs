@@ -124,6 +124,7 @@ namespace SpacesForChildren.Controllers {
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register() {
+            ViewBag.Profile = new SelectList(db.Roles, "Name","Name");
             return View();
         }
 
@@ -141,8 +142,9 @@ namespace SpacesForChildren.Controllers {
                     Email = model.Email,
                     //Added
                     Name = model.Name,
-                    FiscalId = model.FiscalId,
-                    Address = model.Address
+                    NIF = model.NIF,
+                    Address = model.Address,    
+                    City = model.City
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
@@ -159,10 +161,7 @@ namespace SpacesForChildren.Controllers {
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     //Added
-                    if (User.IsInRole(Profiles.Admin)) {
-
-                    }
-                    else if (User.IsInRole(Profiles.Institution)) {
+                    if (User.IsInRole(Profiles.Institution)) {
 
                     }
                     else if (User.IsInRole(Profiles.Parent)) {

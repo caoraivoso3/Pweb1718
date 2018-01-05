@@ -193,7 +193,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ParentsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,13 +216,21 @@
     <Compile Include="Migrations\201801031250418_CreateRolesV4.Designer.cs">
       <DependentUpon>201801031250418_CreateRolesV4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801042319126_databaseRevisionV5.cs" />
+    <Compile Include="Migrations\201801042319126_databaseRevisionV5.Designer.cs">
+      <DependentUpon>201801042319126_databaseRevisionV5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801050052587_databaseRevisionV6.cs" />
+    <Compile Include="Migrations\201801050052587_databaseRevisionV6.Designer.cs">
+      <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Institution.cs" />
-    <Compile Include="Models\Local.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\Profiles.cs" />
@@ -290,6 +301,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Parents\Create.cshtml" />
+    <Content Include="Views\Parents\Delete.cshtml" />
+    <Content Include="Views\Parents\Details.cshtml" />
+    <Content Include="Views\Parents\Edit.cshtml" />
+    <Content Include="Views\Parents\Index.cshtml" />
+    <Content Include="Views\Institutions\Create.cshtml" />
+    <Content Include="Views\Institutions\Delete.cshtml" />
+    <Content Include="Views\Institutions\Details.cshtml" />
+    <Content Include="Views\Institutions\Edit.cshtml" />
+    <Content Include="Views\Institutions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -317,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801031250418_CreateRolesV4.resx">
       <DependentUpon>201801031250418_CreateRolesV4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801042319126_databaseRevisionV5.resx">
+      <DependentUpon>201801042319126_databaseRevisionV5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801050052587_databaseRevisionV6.resx">
+      <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

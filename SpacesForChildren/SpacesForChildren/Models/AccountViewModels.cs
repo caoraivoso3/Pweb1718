@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SpacesForChildren.Models
 {
+    public enum EGender {
+        Masculino,
+        Feminino
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -64,33 +69,45 @@ namespace SpacesForChildren.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Nome obrigatório.")]
+        [Display(Name = "Nome")]
         public string Name { get; set; }
 
-        [Required]
-        public int FiscalId { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "Morada obrigatória.")]
+        [Display(Name = "Morada")]
         public string Address { get; set; }
 
-        [Required]
-        public string Profile { get; set; }
+        [Required(ErrorMessage = "Cidade obrigatória.")]
+        [Display(Name = "Cidade")]
+        public string City { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nif obrigatório.")]       
+        [Display(Name = "NIF")]
+        public int NIF { get; set; }
+
+        [Required(ErrorMessage = "Telefone obrigatório.")]
+        [Display(Name = "Telefone")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Formato de telefone inserido invalido.")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Email obrigatório.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Palavra-Passe obrigatória.")]
+        [StringLength(100, ErrorMessage = "A {0} tem de ter pelo menos {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Palavra-Passe")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirma a Palavra-Passe")]
+        [Compare("Password", ErrorMessage = "As palvras-passe não correspondem")]
         public string ConfirmPassword { get; set; }
+
+        //Account type
+        public string Profile { get; set; }
     }
 
     public class ResetPasswordViewModel

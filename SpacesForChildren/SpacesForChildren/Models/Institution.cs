@@ -17,7 +17,7 @@ namespace SpacesForChildren.Models {
     [Table("Institution")]
     public class Institution : ApplicationUser {
         public Institution() {
-            //Services = new HashSet<Service>();
+            //Services = new HashSet<Service>();    
         }
 
 
@@ -32,15 +32,9 @@ namespace SpacesForChildren.Models {
 
         public bool IsApproved { get; set; }
 
-        [Required]
-        public virtual Local Local { get; set; }
-
-        [ForeignKey("Local")]
-        public virtual int LocalId { get; set; }
-
-
         public virtual ICollection<Service> Services { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<RequestInfo> Requests { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
     }
 }

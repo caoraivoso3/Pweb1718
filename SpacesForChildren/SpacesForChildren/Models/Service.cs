@@ -25,12 +25,7 @@ namespace SpacesForChildren.Models {
         [Required]
         public int Price { get; set; }
 
-        [Required]
-        public virtual Institution Institution { get; set; }
-
-        [ForeignKey("Institution")]
-        public string InstitutionId { get; set; }
-
+        public virtual ICollection<Institution> Institutions { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
     }
 }

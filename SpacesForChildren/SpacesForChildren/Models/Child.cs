@@ -15,7 +15,7 @@ namespace SpacesForChildren.Models {
         public string Name { get; set; }
 
         [Required]
-        public string Gender { get; set; }
+        public EGender Gender { get; set; }
 
         [Required]
         [Display(Name = "Data de nascimento")]

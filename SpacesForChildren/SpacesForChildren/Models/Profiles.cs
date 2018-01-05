@@ -5,8 +5,7 @@ using System.Web;
 
 namespace SpacesForChildren.Models {
     internal class Profiles {
-        public const string Admin = "Admin";
-        public const string Institution = "Institution";
-        public const string Parent = "Parent";
+        public const string Institution = "Instituição";
+        public const string Parent = "Pai";
     }
 }
