@@ -7,5 +7,5 @@ namespace SpacesForChildren.Models {
     internal class Profiles {
         public const string Institution = "Instituição";
         public const string Parent = "Pai";
-    }
+    }   
 }

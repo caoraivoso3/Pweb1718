@@ -76,13 +76,13 @@ namespace SpacesForChildren
 
             if (!roleManager.RoleExists(Profiles.Institution)) {
                 var role = new IdentityRole();
-                role.Name = "Institution";
+                role.Name = "Instituição";
                 roleManager.Create(role);
             }
 
             if (!roleManager.RoleExists(Profiles.Parent)) {
                 var role = new IdentityRole();
-                role.Name = "Parent";
+                role.Name = "Pai";
                 roleManager.Create(role);
             }
         }

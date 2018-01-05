@@ -10,6 +10,7 @@ using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
 {
+    [AllowAnonymous]
     public class ServicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

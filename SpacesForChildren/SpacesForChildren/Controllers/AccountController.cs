@@ -13,6 +13,7 @@ using SpacesForChildren.Models;
 namespace SpacesForChildren.Controllers {
 
     [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -127,15 +128,59 @@ namespace SpacesForChildren.Controllers {
             ViewBag.Profile = new SelectList(db.Roles, "Name","Name");
             return View();
         }
-
+            
         //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model) {
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+
+            string profileSelected = Request.Form["Profile"];
+            var user = new ApplicationUser();
+
             if (ModelState.IsValid)
             {
+                if (profileSelected == Profiles.Parent)
+                {
+                    Parent parent = new Parent
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        //Added 
+                        Name = model.Name,
+                        NIF = model.NIF,
+                        Address = model.Address,
+                        City = model.City
+
+                        //Specific Role Fields
+                    };
+                    db.Parents.Add(parent);
+                    user = parent;
+                }
+                else if (profileSelected == Profiles.Institution)
+                {
+                    Institution institution = new Institution
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        //Added
+                        Name = model.Name,
+                        NIF = model.NIF,
+                        Address = model.Address,
+                        City = model.City
+
+                        //Specific Role Fields
+                    };
+                    db.Institutions.Add(institution);
+                    user = institution;
+                }
+                else
+                {
+                    throw new Exception("Role Should be Select");
+                }
+                /*
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -146,6 +191,7 @@ namespace SpacesForChildren.Controllers {
                     Address = model.Address,    
                     City = model.City
                 };
+                */
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
 
