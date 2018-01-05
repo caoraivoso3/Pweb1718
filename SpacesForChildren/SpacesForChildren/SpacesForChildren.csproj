@@ -201,41 +201,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712291525553_initialMigrationV1.cs" />
-    <Compile Include="Migrations\201712291525553_initialMigrationV1.Designer.cs">
-      <DependentUpon>201712291525553_initialMigrationV1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801031133097_tablesCreationV2.cs" />
-    <Compile Include="Migrations\201801031133097_tablesCreationV2.Designer.cs">
-      <DependentUpon>201801031133097_tablesCreationV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801031154102_CreateProfilesV3.cs" />
-    <Compile Include="Migrations\201801031154102_CreateProfilesV3.Designer.cs">
-      <DependentUpon>201801031154102_CreateProfilesV3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801031250418_CreateRolesV4.cs" />
-    <Compile Include="Migrations\201801031250418_CreateRolesV4.Designer.cs">
-      <DependentUpon>201801031250418_CreateRolesV4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801042319126_databaseRevisionV5.cs" />
-    <Compile Include="Migrations\201801042319126_databaseRevisionV5.Designer.cs">
-      <DependentUpon>201801042319126_databaseRevisionV5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801050052587_databaseRevisionV6.cs" />
-    <Compile Include="Migrations\201801050052587_databaseRevisionV6.Designer.cs">
-      <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801051208114_modelUpdate.cs" />
-    <Compile Include="Migrations\201801051208114_modelUpdate.Designer.cs">
-      <DependentUpon>201801051208114_modelUpdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801051210095_modelUpdatev7.cs" />
-    <Compile Include="Migrations\201801051210095_modelUpdatev7.Designer.cs">
-      <DependentUpon>201801051210095_modelUpdatev7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801051233442_modelUpdatev8.cs" />
-    <Compile Include="Migrations\201801051233442_modelUpdatev8.Designer.cs">
-      <DependentUpon>201801051233442_modelUpdatev8.cs</DependentUpon>
+    <Compile Include="Migrations\201801051505584_initialMigrationV1.cs" />
+    <Compile Include="Migrations\201801051505584_initialMigrationV1.Designer.cs">
+      <DependentUpon>201801051505584_initialMigrationV1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -332,7 +300,11 @@
     <Content Include="Views\Children\Details.cshtml" />
     <Content Include="Views\Children\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801051505584_initialMigrationV1.resx">
+      <DependentUpon>201801051505584_initialMigrationV1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
@@ -345,35 +317,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712291525553_initialMigrationV1.resx">
-      <DependentUpon>201712291525553_initialMigrationV1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801031133097_tablesCreationV2.resx">
-      <DependentUpon>201801031133097_tablesCreationV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801031154102_CreateProfilesV3.resx">
-      <DependentUpon>201801031154102_CreateProfilesV3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801031250418_CreateRolesV4.resx">
-      <DependentUpon>201801031250418_CreateRolesV4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801042319126_databaseRevisionV5.resx">
-      <DependentUpon>201801042319126_databaseRevisionV5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801050052587_databaseRevisionV6.resx">
-      <DependentUpon>201801050052587_databaseRevisionV6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801051208114_modelUpdate.resx">
-      <DependentUpon>201801051208114_modelUpdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801051210095_modelUpdatev7.resx">
-      <DependentUpon>201801051210095_modelUpdatev7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801051233442_modelUpdatev8.resx">
-      <DependentUpon>201801051233442_modelUpdatev8.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
