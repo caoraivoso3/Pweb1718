@@ -18,7 +18,7 @@ namespace SpacesForChildren.Controllers
         // GET: Parents
         public ActionResult Index()
         {
-            return View(db.Parents.ToList());
+            return View(db.Parent.ToList());
         }
 
         // GET: Parents/Details/5
@@ -28,7 +28,7 @@ namespace SpacesForChildren.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Parent parent = db.Parents.Find(id);
+            Parent parent = db.Parent.Find(id);
             if (parent == null)
             {
                 return HttpNotFound();
@@ -66,7 +66,7 @@ namespace SpacesForChildren.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Parent parent = db.Parents.Find(id);
+            Parent parent = db.Parent.Find(id);
             if (parent == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace SpacesForChildren.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Parent parent = db.Parents.Find(id);
+            Parent parent = db.Parent.Find(id);
             if (parent == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace SpacesForChildren.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Parent parent = db.Parents.Find(id);
+            Parent parent = db.Parent.Find(id);
             db.Users.Remove(parent);
             db.SaveChanges();
             return RedirectToAction("Index");

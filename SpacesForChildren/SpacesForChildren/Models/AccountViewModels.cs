@@ -114,6 +114,21 @@ namespace SpacesForChildren.Models
 
         //Account type
         public string Profile { get; set; }
+
+
+        //Institution Fields
+        [Required(ErrorMessage = "Tipo de Instituição obrigatória.")]
+        [Display(Name = "Tipo de Instituição")]
+        public EInstituitionType Type { get; set; }
+
+        [Required(ErrorMessage = "Descrição obrigatória.")]
+        [Display(Name = "Descrição")]
+        public string Description { get; set; }
+
+        //Parent Fields
+        [Required(ErrorMessage = "Género obrigatório.")]
+        [Display(Name = "Género")]
+        public EGender Gender { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -145,5 +145,7 @@ C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.csproj.CoreCompileInputs.cache
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.dll
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.pdb
-C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.initialMigrationV1.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.initialModel.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.csproj.GenerateResource.Cache
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.initialModelv3.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.registerviewmodelupdate.resources

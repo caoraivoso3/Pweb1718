@@ -62,16 +62,23 @@
     <div class="form-group">
         @Html.Label("Perfil", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownList("Profile", null, null, new { @class = "form-control" })
+            @Html.DropDownList("Profile", null, null, new { @class = "form-control" , @onchange = "roleFunction(this.value)" })
         </div>
     </div>
 
-    /*
+    
     <div id="institution-register-forms">
         <div class="form-group">
-            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -81,16 +88,42 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Gender, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
-    */
+    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Registar" />
         </div>
     </div>
+
+    <script>
+
+        function roleFunction(role) {
+            if (role === "Instituição")
+                institutionRoleFunction();
+            else if(role === "Pai")
+                parentRoleFunction();
+
+        }
+
+        function parentRoleFunction() {
+            var parentFields = document.getElementById("parent-register-forms");
+            var institutionFields = document.getElementById("institution-register-forms");
+            parentFields.style.display = "block";
+            institutionFields.style.display = "none";
+        }
+
+        function institutionRoleFunction() {
+            var parentFields = document.getElementById("parent-register-forms");
+            var institutionFields = document.getElementById("institution-register-forms");
+            parentFields.style.display = "none";
+            institutionFields.style.display = "block";
+        }
+    </script>
 }
 
 @section Scripts {

@@ -23,6 +23,8 @@ namespace SpacesForChildren.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/YYYY}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
+        public int TotalPrice;
+
         public bool IsApproved { get; set; }    
 
         [Required]

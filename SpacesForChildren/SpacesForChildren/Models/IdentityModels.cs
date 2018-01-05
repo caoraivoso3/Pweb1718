@@ -26,19 +26,19 @@ namespace SpacesForChildren.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnections", throwIfV1Schema: false)
         {
         }
 
         // Line below added
-        public DbSet<Institution> Institutions { get; set; }
-        public DbSet<Parent> Parents { get; set; }
+        public DbSet<Institution> Institution { get; set; }
+        public DbSet<Parent> Parent { get; set; }
         public DbSet<Child> Child { get; set; }
         public DbSet<Contract> Contract { get; set; }
         public DbSet<RequestInfo> RequestInfo { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Service> Service { get; set; }
-        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Activity> Activity { get; set; }
 
         public static ApplicationDbContext Create()
         {

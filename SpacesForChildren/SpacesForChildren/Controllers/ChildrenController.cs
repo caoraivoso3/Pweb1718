@@ -45,34 +45,6 @@ namespace SpacesForChildren.Controllers
             return View(child);
         }
 
-        // GET: Children/Create
-        public ActionResult Create()
-        {
-            string parentId = User.Identity.GetUserId();
-            ViewBag.ParentName = db.Users.FirstOrDefault(x => x.Id == parentId).Name;
-            return View();
-        }
-
-        // POST: Children/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Gender,DateOfBirth")] Child child)
-        {
-            child.ParentId = User.Identity.GetUserId();
-            child.Parent = db.Parents.Find(User.Identity.GetUserId());
-            if (ModelState.IsValid)
-            {
-                db.Child.Add(child);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name", child.ParentId);
-            return View(child);
-        }
-
         // GET: Children/Delete/5
         public ActionResult Delete(int? id)
         {

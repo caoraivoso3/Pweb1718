@@ -157,7 +157,7 @@ namespace SpacesForChildren.Controllers {
 
                         //Specific Role Fields
                     };
-                    db.Parents.Add(parent);
+                    db.Parent.Add(parent);
                     user = parent;
                 }
                 else if (profileSelected == Profiles.Institution)
@@ -178,7 +178,7 @@ namespace SpacesForChildren.Controllers {
                         Description = "",
                         IsApproved = true
                     };
-                    db.Institutions.Add(institution);
+                    db.Institution.Add(institution);
                     user = institution;
                 }
                 else

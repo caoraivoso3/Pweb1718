@@ -201,9 +201,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801051505584_initialMigrationV1.cs" />
-    <Compile Include="Migrations\201801051505584_initialMigrationV1.Designer.cs">
-      <DependentUpon>201801051505584_initialMigrationV1.cs</DependentUpon>
+    <Compile Include="Migrations\201801051558351_initialModel.cs" />
+    <Compile Include="Migrations\201801051558351_initialModel.Designer.cs">
+      <DependentUpon>201801051558351_initialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801051608008_initialModelv3.cs" />
+    <Compile Include="Migrations\201801051608008_initialModelv3.Designer.cs">
+      <DependentUpon>201801051608008_initialModelv3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801051633339_register-view-model-update.cs" />
+    <Compile Include="Migrations\201801051633339_register-view-model-update.Designer.cs">
+      <DependentUpon>201801051633339_register-view-model-update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -222,9 +230,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TrabalhoPratico.mdf" />
-    <Content Include="App_Data\TrabalhoPratico_log.ldf">
-      <DependentUpon>TrabalhoPratico.mdf</DependentUpon>
+    <Content Include="App_Data\DefaultConnections.mdf" />
+    <Content Include="App_Data\DefaultConnections_log.ldf">
+      <DependentUpon>DefaultConnections.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -301,11 +309,6 @@
     <Content Include="Views\Children\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801051505584_initialMigrationV1.resx">
-      <DependentUpon>201801051505584_initialMigrationV1.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +321,18 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801051558351_initialModel.resx">
+      <DependentUpon>201801051558351_initialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051608008_initialModelv3.resx">
+      <DependentUpon>201801051608008_initialModelv3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051633339_register-view-model-update.resx">
+      <DependentUpon>201801051633339_register-view-model-update.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
