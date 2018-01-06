@@ -224,6 +224,10 @@
     <Compile Include="Migrations\201801060201212_update-data-notations.Designer.cs">
       <DependentUpon>201801060201212_update-data-notations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801060414522_required-droped-from-children-relatioships.cs" />
+    <Compile Include="Migrations\201801060414522_required-droped-from-children-relatioships.Designer.cs">
+      <DependentUpon>201801060414522_required-droped-from-children-relatioships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -334,7 +338,6 @@
     <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
-    <Content Include="Views\Children\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -364,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801060201212_update-data-notations.resx">
       <DependentUpon>201801060201212_update-data-notations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801060414522_required-droped-from-children-relatioships.resx">
+      <DependentUpon>201801060414522_required-droped-from-children-relatioships.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

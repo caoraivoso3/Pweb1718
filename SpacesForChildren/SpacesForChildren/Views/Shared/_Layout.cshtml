@@ -26,15 +26,14 @@
            @if (User.IsInRole("Pai")) 
            {
                 <li>@Html.ActionLink("Filhos", "Index", "Children")</li>
-                <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
-                <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
+                <li>@Html.ActionLink("Filhos", "Index", "Children")</li>
            }
            @if (User.IsInRole("Instituição")) 
            {
                 <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
                 <li>@Html.ActionLink("Crianças", "Index", "Children")</li>
-                <li>@Html.ActionLink("Atividades", "Index", "Activities")</li>
-                <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
+               <li>@Html.ActionLink("Atividades", "Index", "Children")</li>
+               <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
            }
                     <li>@Html.ActionLink("Sobre nós", "About", "Home")</li>
                     <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
