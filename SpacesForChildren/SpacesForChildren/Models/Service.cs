@@ -10,20 +10,26 @@ namespace SpacesForChildren.Models {
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Display(Name = "Nome do Serviço")]
+        [Required(ErrorMessage = "Nome do Serviço Obrigatório.")]
+        [StringLength(40, ErrorMessage = "O nome não pode ser superior a 40 Carateres.")]
         public string Name { get; set; }
 
-        [Required]
+        [Display(Name = "Descrição")]
+        [Required(ErrorMessage = "Descrição do Serviço Obrigatório.")]
+        [StringLength(200, ErrorMessage = "A descrição não pode ter mais de 200 Carateres.")]
         public string Description { get; set; }
 
-        [Required]
+        [Display(Name = "Idade Mínima")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Idade tem de ser Numérica.")]
+        [Required(ErrorMessage = "Idade Mínima Obrigatória.")]
         public int MinAgeYear { get; set; }
 
-        [Required]
+        [Display(Name = "Idade Máxima")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Idade tem de ser Numérica.")]
+        [Required(ErrorMessage = "Idade Máxima Obrigatória.")]
         public int MaxAgeYear { get; set; }
 
-        [Required]
-        public int Price { get; set; }
 
         public virtual ICollection<Institution> Institutions { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }

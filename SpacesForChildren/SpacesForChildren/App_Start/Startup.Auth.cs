@@ -22,6 +22,7 @@ namespace SpacesForChildren
 
             //Added
             CreateProfiles();
+            CreateAdmin();
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -84,6 +85,31 @@ namespace SpacesForChildren
                 var role = new IdentityRole();
                 role.Name = "Pai";
                 roleManager.Create(role);
+            }
+
+            if (!roleManager.RoleExists(Profiles.Admin)) {
+                var role = new IdentityRole();
+                role.Name = "Administrador";
+                roleManager.Create(role);
+            }
+        }
+
+        private void CreateAdmin() {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var UserManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(db));
+
+            var user = new ApplicationUser {
+                Email = "admin@spaces4children",
+                UserName = "admin",
+            };
+            string passAdmin = "admin";
+
+            var result = UserManager.Create(user, passAdmin);
+
+            if (result.Succeeded) {
+                UserManager.AddToRole(user.Id, Profiles.Admin);
             }
         }
     }

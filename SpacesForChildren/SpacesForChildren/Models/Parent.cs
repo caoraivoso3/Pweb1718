@@ -10,7 +10,8 @@ namespace SpacesForChildren.Models {
     [Table("Parent")]
     public class Parent : ApplicationUser{
 
-        [Required]
+        [Required(ErrorMessage = "Género Obrigatório.")]
+        [Display(Name = "Género")]
         public EGender Gender { get; set; }
 
         public virtual ICollection<Child> Childrens { get; set; }

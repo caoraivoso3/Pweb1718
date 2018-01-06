@@ -117,16 +117,16 @@ namespace SpacesForChildren.Models
 
 
         //Institution Fields
-        [Required(ErrorMessage = "Tipo de Instituição obrigatória.")]
+        //[Required(ErrorMessage = "Tipo de Instituição obrigatória.")]
         [Display(Name = "Tipo de Instituição")]
         public EInstituitionType Type { get; set; }
 
-        [Required(ErrorMessage = "Descrição obrigatória.")]
+        //[Required(ErrorMessage = "Descrição obrigatória.")]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
 
         //Parent Fields
-        [Required(ErrorMessage = "Género obrigatório.")]
+        //[Required(ErrorMessage = "Género obrigatório.")]
         [Display(Name = "Género")]
         public EGender Gender { get; set; }
     }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
@@ -15,12 +17,49 @@ namespace SpacesForChildren.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
+        public void PopulateSearchViewBags()
+        {
+            ViewBag.RankingListItems = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Todos", Value = "0" },
+                new SelectListItem { Text = "1", Value = "1" },
+                new SelectListItem { Text = "2", Value = "2" },
+                new SelectListItem { Text = "3", Value = "3" },
+                new SelectListItem { Text = "4", Value = "4" },
+                new SelectListItem { Text = "5", Value = "5" }
+            };
+            ViewBag.CityListItems = new SelectList(db.Institution, "Id", "City");
+        }
 
         // GET: Institutions
         public ActionResult Index()
         {
+            PopulateSearchViewBags();
             return View(db.Institution.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string CityListItems, int? RankingListItems)
+        {
+            //int ranking = Int32.Parse(ViewBag.RankingListItems);
+            string location = CityListItems;
+            int? ranking = RankingListItems;
+            /*if (!location.IsNullOrWhiteSpace() && ranking != null)
+            {
+                PopulateSearchViewBags();
+                return View(db.Institution
+                    .Where(i => i.Id == location)
+                        .Include(r => r.Reviews.Where(rank => rank.Ranking == ranking))
+                        .ToList());
+            }else*/ if (!location.IsNullOrWhiteSpace())
+            {
+                PopulateSearchViewBags();
+                return View(db.Institution
+                    .Where(i => i.Id == location).ToList());
+            }
+            
+            return Index();
         }
 
         // GET: Institutions/Details/5

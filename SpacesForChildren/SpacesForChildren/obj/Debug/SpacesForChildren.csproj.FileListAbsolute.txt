@@ -149,3 +149,5 @@ C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.csproj.GenerateResource.Cache
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.initialModelv3.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.registerviewmodelupdate.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.registerviewmodelupdatev1.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.updatedatanotations.resources

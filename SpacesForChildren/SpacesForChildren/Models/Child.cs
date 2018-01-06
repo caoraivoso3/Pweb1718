@@ -11,13 +11,15 @@ namespace SpacesForChildren.Models {
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nome Obrigatório.")]
+        [Display(Name = "Nome")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Género Obrigatório.")]
+        [Display(Name = "Género")]
         public EGender Gender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Data de Nascimento Obrigatória.")]
         [Display(Name = "Data de nascimento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/YYYY}", ApplyFormatInEditMode = true)]

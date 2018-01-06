@@ -192,11 +192,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
+    <Compile Include="Controllers\ContractsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
+    <Compile Include="Controllers\RequestInfoesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -213,6 +216,14 @@
     <Compile Include="Migrations\201801051633339_register-view-model-update.Designer.cs">
       <DependentUpon>201801051633339_register-view-model-update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801051814117_register-view-model-updatev1.cs" />
+    <Compile Include="Migrations\201801051814117_register-view-model-updatev1.Designer.cs">
+      <DependentUpon>201801051814117_register-view-model-updatev1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801060201212_update-data-notations.cs" />
+    <Compile Include="Migrations\201801060201212_update-data-notations.Designer.cs">
+      <DependentUpon>201801060201212_update-data-notations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -223,6 +234,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Parent.cs" />
     <Compile Include="Models\Profiles.cs" />
+    <Compile Include="Models\ProfilesRegisterView.cs" />
     <Compile Include="Models\RequestInfo.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Service.cs" />
@@ -307,6 +319,21 @@
     <Content Include="Views\Children\Delete.cshtml" />
     <Content Include="Views\Children\Details.cshtml" />
     <Content Include="Views\Children\Index.cshtml" />
+    <Content Include="Views\Contracts\Create.cshtml" />
+    <Content Include="Views\Contracts\Delete.cshtml" />
+    <Content Include="Views\Contracts\Details.cshtml" />
+    <Content Include="Views\Contracts\Edit.cshtml" />
+    <Content Include="Views\Contracts\Index.cshtml" />
+    <Content Include="Views\RequestInfoes\Create.cshtml" />
+    <Content Include="Views\RequestInfoes\Delete.cshtml" />
+    <Content Include="Views\RequestInfoes\Details.cshtml" />
+    <Content Include="Views\RequestInfoes\Edit.cshtml" />
+    <Content Include="Views\RequestInfoes\Index.cshtml" />
+    <Content Include="Views\Activities\Create.cshtml" />
+    <Content Include="Views\Activities\Delete.cshtml" />
+    <Content Include="Views\Activities\Details.cshtml" />
+    <Content Include="Views\Activities\Edit.cshtml" />
+    <Content Include="Views\Activities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -330,6 +357,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801051633339_register-view-model-update.resx">
       <DependentUpon>201801051633339_register-view-model-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801051814117_register-view-model-updatev1.resx">
+      <DependentUpon>201801051814117_register-view-model-updatev1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801060201212_update-data-notations.resx">
+      <DependentUpon>201801060201212_update-data-notations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

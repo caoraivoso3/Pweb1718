@@ -11,29 +11,34 @@ namespace SpacesForChildren.Models {
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Data Inicial do Contrato")]
+        [Required(ErrorMessage = "Data Inicial do Contrato Obrigatória.")]
+        [Display(Name = "Data Inicial do Contrato.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/YYYY}", ApplyFormatInEditMode = true)]
         public DateTime? InitialDate { get; set; }
 
-        [Required]
-        [Display(Name = "Data Final do Contrato")]
+        [Required(ErrorMessage = "Data Final do Contrato Obrigatória.")]
+        [Display(Name = "Data Final do Contrato.")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/YYYY}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
+        [Required(ErrorMessage = "Preço dos Serviços Obrigatório.")]
+        [Display(Name = "Preço dos Serviços")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Avaliação tem de ser Numérica.")]
         public int TotalPrice;
 
         public bool IsApproved { get; set; }    
 
-        [Required]
+        [Required(ErrorMessage = "Obrigatório adicionar Filho.")]
+        [Display(Name = "Filho")]
         public virtual Child Child { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Obrigatório adicionar Pai.")]
+        [Display(Name = "Pai")]
         public virtual Parent Parent { get; set; }
 
-        [Required]
+        [Display(Name = "Comentário")]
         public virtual Review Review { get; set; }
 
         [ForeignKey("Parent")]

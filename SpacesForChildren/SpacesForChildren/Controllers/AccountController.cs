@@ -174,9 +174,9 @@ namespace SpacesForChildren.Controllers {
                         City = model.City,
 
                         //Specific Role Fields
-                        Type = 0,
-                        Description = "",
-                        IsApproved = true
+                        Type = model.Type,
+                        Description = model.Description,
+                        IsApproved = false
                     };
                     db.Institution.Add(institution);
                     user = institution;
