@@ -10,7 +10,6 @@ using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
 {
-    [Authorize(Roles = Profiles.Institution)]
     public class ContractsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace SpacesForChildren.Models {
+
     public class Service {
         [Key]
         public int Id { get; set; }

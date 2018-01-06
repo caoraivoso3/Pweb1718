@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
@@ -17,8 +18,15 @@ namespace SpacesForChildren.Controllers
         // GET: RequestInfoes
         public ActionResult Index()
         {
-            var requestInfo = db.RequestInfo.Include(r => r.Institution).Include(r => r.Parent);
-            return View(requestInfo.ToList());
+      
+            if (User.IsInRole(Profiles.Institution))
+            {
+                var requestInfo = db.RequestInfo.Include(r => r.InstitutionId);
+                return View(requestInfo.ToList());
+            }
+
+            var requestInfo1 = db.RequestInfo.Include(r => r.Parent);
+            return View(requestInfo1.ToList());
         }
 
         // GET: RequestInfoes/Details/5
@@ -39,8 +47,8 @@ namespace SpacesForChildren.Controllers
         // GET: RequestInfoes/Create
         public ActionResult Create()
         {
-            ViewBag.InstitutionId = new SelectList(db.Users, "Id", "Name");
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name");
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
             return View();
         }
 
@@ -49,17 +57,25 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text,IsAnswered,Answer,ParentId,InstitutionId")] RequestInfo requestInfo)
+        public ActionResult Create([Bind(Include = "Id,Title,Text,InstitutionId")] 
+            RequestInfo requestInfo)
         {
-            if (ModelState.IsValid)
-            {
+            ModelState.Remove("Parent");
+            ModelState.Remove("IsAnswered");
+            ModelState.Remove("Answer");
+
+            requestInfo.IsAnswered = false;
+            requestInfo.ParentId = db.Parent.Find(User.Identity.GetUserId()).Id;
+
+            //if (ModelState.IsValid)
+            //{
                 db.RequestInfo.Add(requestInfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-
-            ViewBag.InstitutionId = new SelectList(db.Users, "Id", "Name", requestInfo.InstitutionId);
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name", requestInfo.ParentId);
+            //}
+            
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name", requestInfo.InstitutionId);
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", requestInfo.ParentId);
             return View(requestInfo);
         }
 

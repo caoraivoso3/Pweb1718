@@ -101,10 +101,10 @@ namespace SpacesForChildren
                 new UserStore<ApplicationUser>(db));
 
             var user = new ApplicationUser {
-                Email = "admin@spaces4children",
-                UserName = "admin",
+                Email = "admin@spaces4children.com",
+                UserName = "admin@spaces4children.com",
             };
-            string passAdmin = "admin";
+            string passAdmin = "Rafa1+";
 
             var result = UserManager.Create(user, passAdmin);
 

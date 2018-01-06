@@ -27,7 +27,8 @@ namespace SpacesForChildren.Models {
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Avaliação tem de ser Numérica.")]
         public int Ranking { get; set; }
 
-        [Required(ErrorMessage = "Instituição Obrigatória.")]
+        //[Required(ErrorMessage = "Instituição Obrigatória.")]
+        [Display(Name = "Instituição")]
         public virtual Institution Institution { get; set; }
 
         //[Required]

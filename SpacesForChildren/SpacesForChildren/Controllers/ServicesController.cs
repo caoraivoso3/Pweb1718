@@ -10,6 +10,7 @@ using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
 {
+    [Authorize(Roles = "Administrator,Instituição")]
     public class ServicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -36,6 +37,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Services/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +48,7 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,MinAgeYear,MaxAgeYear,Price")] Service service)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Services/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +111,7 @@ namespace SpacesForChildren.Controllers
         // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Service service = db.Service.Find(id);

@@ -152,3 +152,8 @@ C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.registerviewmodelupdatev1.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.updatedatanotations.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedfromchildrenrelatioships.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddroped.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedv2.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedv3.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedv4.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.displayupdatev1.resources

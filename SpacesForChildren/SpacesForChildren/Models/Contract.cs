@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Principal;
 
 namespace SpacesForChildren.Models {
 
@@ -28,13 +29,14 @@ namespace SpacesForChildren.Models {
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Avaliação tem de ser Numérica.")]
         public int TotalPrice;
 
+        [Display(Name = "Aprovado Pelo Cliente")]
         public bool IsApproved { get; set; }    
 
-        [Required(ErrorMessage = "Obrigatório adicionar Filho.")]
+        //[Required(ErrorMessage = "Obrigatório adicionar Filho.")]
         [Display(Name = "Filho")]
         public virtual Child Child { get; set; }
 
-        [Required(ErrorMessage = "Obrigatório adicionar Pai.")]
+        //[Required(ErrorMessage = "Obrigatório adicionar Pai.")]
         [Display(Name = "Pai")]
         public virtual Parent Parent { get; set; }
 

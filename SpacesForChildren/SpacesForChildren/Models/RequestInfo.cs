@@ -28,11 +28,11 @@ namespace SpacesForChildren.Models {
         [StringLength(200, ErrorMessage = "O resposta não pode ser superior a 200 Carateres.")]
         public string Answer { get; set; }
 
-        [Required(ErrorMessage = "Pai Obrigatória.")]
+        //[Required(ErrorMessage = "Pai Obrigatória.")]
         [Display(Name = "Pai")]
         public virtual Parent Parent { get; set; }
 
-        [Required(ErrorMessage = "Instituição Obrigatória.")]
+        //[Required(ErrorMessage = "Instituição Obrigatória.")]
         [Display(Name = "Instituição")]
         public virtual Institution Institution { get; set; }
 

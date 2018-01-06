@@ -20,6 +20,7 @@ namespace SpacesForChildren.Models {
         [StringLength(200, ErrorMessage = "A descrição não pode ser superior a 200 Carateres.")]
         public string Description { get; set; }
 
+        [Display(Name = "Aprovação")]
         public bool IsApproved { get; set; }
 
         public virtual ICollection<Service> Services { get; set; }

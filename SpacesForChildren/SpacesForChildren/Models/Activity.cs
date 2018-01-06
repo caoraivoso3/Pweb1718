@@ -31,7 +31,8 @@ namespace SpacesForChildren.Models {
         [ForeignKey("Institution")]
         public string InstitutionId { get; set; }
 
-        [Required]
+        //[Required(ErrorMessage = "Instituição Obrigatória.")]
+        [Display(Name = "Instituição")]
         public virtual Institution Institution { get; set; }
 
     }

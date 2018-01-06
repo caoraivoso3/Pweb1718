@@ -10,6 +10,7 @@ using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
 {
+    [Authorize]
     public class ActivitiesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -37,6 +38,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Activities/Create
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Create()
         {
             ViewBag.InstitutionId = new SelectList(db.Users, "Id", "Name");
@@ -48,6 +50,7 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Create([Bind(Include = "Id,Name,Date,Description,InstitutionId")] Activity activity)
         {
             if (ModelState.IsValid)
@@ -62,6 +65,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Activities/Edit/5
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +86,7 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Edit([Bind(Include = "Id,Name,Date,Description,InstitutionId")] Activity activity)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Activities/Delete/5
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +118,7 @@ namespace SpacesForChildren.Controllers
         // POST: Activities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Profiles.Admin)]
         public ActionResult DeleteConfirmed(int id)
         {
             Activity activity = db.Activity.Find(id);

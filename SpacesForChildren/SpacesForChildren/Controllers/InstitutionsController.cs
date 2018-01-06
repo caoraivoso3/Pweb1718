@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -101,7 +102,18 @@ namespace SpacesForChildren.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(institution).State = EntityState.Modified;
+                var toUpdate = db.Institution.Find(institution.Id);
+                toUpdate.IsApproved = institution.IsApproved;
+                toUpdate.Name = institution.Name;
+                toUpdate.NIF = institution.NIF;
+                toUpdate.Address = institution.Address;
+                toUpdate.City = institution.City;
+                toUpdate.Email = institution.Email;
+                toUpdate.PhoneNumber = institution.PhoneNumber;
+                toUpdate.Type = institution.Type;
+                toUpdate.Description = institution.Description;
+
+                db.Institution.AddOrUpdate(toUpdate);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

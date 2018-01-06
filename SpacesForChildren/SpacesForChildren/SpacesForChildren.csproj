@@ -228,6 +228,26 @@
     <Compile Include="Migrations\201801060414522_required-droped-from-children-relatioships.Designer.cs">
       <DependentUpon>201801060414522_required-droped-from-children-relatioships.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801061456586_required-droped.cs" />
+    <Compile Include="Migrations\201801061456586_required-droped.Designer.cs">
+      <DependentUpon>201801061456586_required-droped.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061501380_required-dropedv2.cs" />
+    <Compile Include="Migrations\201801061501380_required-dropedv2.Designer.cs">
+      <DependentUpon>201801061501380_required-dropedv2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061508123_required-dropedv3.cs" />
+    <Compile Include="Migrations\201801061508123_required-dropedv3.Designer.cs">
+      <DependentUpon>201801061508123_required-dropedv3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061800126_required-dropedv4.cs" />
+    <Compile Include="Migrations\201801061800126_required-dropedv4.Designer.cs">
+      <DependentUpon>201801061800126_required-dropedv4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801061828550_display-updatev1.cs" />
+    <Compile Include="Migrations\201801061828550_display-updatev1.Designer.cs">
+      <DependentUpon>201801061828550_display-updatev1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -370,6 +390,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801060414522_required-droped-from-children-relatioships.resx">
       <DependentUpon>201801060414522_required-droped-from-children-relatioships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061456586_required-droped.resx">
+      <DependentUpon>201801061456586_required-droped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061501380_required-dropedv2.resx">
+      <DependentUpon>201801061501380_required-dropedv2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061508123_required-dropedv3.resx">
+      <DependentUpon>201801061508123_required-dropedv3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061800126_required-dropedv4.resx">
+      <DependentUpon>201801061800126_required-dropedv4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801061828550_display-updatev1.resx">
+      <DependentUpon>201801061828550_display-updatev1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

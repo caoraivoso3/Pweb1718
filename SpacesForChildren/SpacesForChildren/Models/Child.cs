@@ -28,6 +28,8 @@ namespace SpacesForChildren.Models {
         [ForeignKey("Parent")]
         public string ParentId { get; set; }
 
+        //[Required]
+        [Display(Name = "Pai")]
         public virtual Parent Parent { get; set; }
 
         public virtual ICollection<Contract> Contracts { get; set; }

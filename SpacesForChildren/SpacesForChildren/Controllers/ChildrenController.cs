@@ -13,7 +13,7 @@ using SpacesForChildren.Models;
 namespace SpacesForChildren.Controllers
 {
 
-    [Authorize(Roles = Profiles.Parent)]
+    [Authorize]
     public class ChildrenController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -31,7 +31,8 @@ namespace SpacesForChildren.Controllers
         }
 
 
-                // GET: Children/Create
+        // GET: Children/Create
+        [Authorize(Roles = "Pai")]
         public ActionResult Create() {
             string parentId = User.Identity.GetUserId();
             ViewBag.ParentName = db.Users.FirstOrDefault(x => x.Id == parentId).Name;
@@ -43,6 +44,7 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Pai")]
         public ActionResult Create([Bind(Include = "Id,Name,Gender,DateOfBirth")] Child child)
         {
 
@@ -85,6 +87,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Children/Delete/5
+        [Authorize(Roles = "Administrador,Pai")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,6 +105,7 @@ namespace SpacesForChildren.Controllers
         // POST: Children/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Pai")]
         public ActionResult DeleteConfirmed(int id)
         {
             Child child = db.Child.Find(id);

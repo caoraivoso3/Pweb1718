@@ -26,17 +26,22 @@
            @if (User.IsInRole("Pai")) 
            {
                 <li>@Html.ActionLink("Filhos", "Index", "Children")</li>
-                <li>@Html.ActionLink("Filhos", "Index", "Children")</li>
+                <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
+                <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
            }
-           @if (User.IsInRole("Instituição")) 
+           @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) 
            {
                 <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
                 <li>@Html.ActionLink("Crianças", "Index", "Children")</li>
-               <li>@Html.ActionLink("Atividades", "Index", "Children")</li>
-               <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
+                <li>@Html.ActionLink("Atividades", "Index", "Children")</li>
+                <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
+                <li>@Html.ActionLink("Serviços", "Index", "Services")</li>
            }
-                    <li>@Html.ActionLink("Sobre nós", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
+           @if (!User.IsInRole("Instituição") && !User.IsInRole("Administrador"))
+           {
+               <li>@Html.ActionLink("Sobre nós", "About", "Home")</li>
+               <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>   
+           }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -46,7 +51,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; Spaces4Children developed by Rafael Henriques and Rui Teixeira </p>
         </footer>
     </div>
 
