@@ -17,7 +17,7 @@ namespace SpacesForChildren.Models {
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Texto do Pedido Obrigatório.")]
-        [Display(Name = "Texto")]
+        [Display(Name = "Mensagem")]
         [StringLength(200, ErrorMessage = "O texto não pode ser superior a 200 Carateres.")]
         public string Text { get; set; }
 

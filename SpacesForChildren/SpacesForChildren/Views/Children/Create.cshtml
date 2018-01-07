@@ -7,7 +7,7 @@
 <h2>Adicionar Filho</h2>
 
 
-@using (Html.BeginForm("Create","Children")) 
+@using (Html.BeginForm("Create","Children", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     

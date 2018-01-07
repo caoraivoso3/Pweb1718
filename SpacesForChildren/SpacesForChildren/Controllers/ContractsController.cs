@@ -6,79 +6,207 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using SpacesForChildren.Models;
 
-namespace SpacesForChildren.Controllers
-{
-    public class ContractsController : Controller
-    {
+namespace SpacesForChildren.Controllers {
+    public class ContractsController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Contracts
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             var contract = db.Contract.Include(c => c.Child).Include(c => c.Parent).Include(c => c.Review);
+
             return View(contract.ToList());
         }
 
         // GET: Contracts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Contract contract = db.Contract.Find(id);
-            if (contract == null)
-            {
+            if (contract == null) {
                 return HttpNotFound();
             }
             return View(contract);
         }
 
-        // GET: Contracts/Create
-        public ActionResult Create()
+        
+        public ActionResult mainCreate()
         {
+            ViewBag.ChildId = new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Sem opção", Value = "empty"}
+            };/*new SelectList(db.Child, "Id", "Name");*/
+            ViewBag.ParentsId = new SelectList(db.Parent, "Id", "Name");
+            ViewBag.ReviewId = new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Sem opção", Value = "empty"}
+            }; ;/*new SelectList(db.Review, "Id", "Title");*/
+            return View("mainCreate");
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult mainCreate(string parentsId)
+        {
+            string parentId = parentsId;
+            if (parentId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var parent = db.Parent.Find(parentId);
+            var child = db.Child.Where(p => p.ParentId == parentId);
+
+            // Partial View
+            ViewBag.ChildId = new SelectList(child, "Id", "Name");
+            ViewBag.ParentId = parentId;
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+
+            // View
+            ViewBag.ParentsId = new SelectList(db.Parent, "Id", "Name");
+
+            var contract = new Contract {
+                ParentId = parentId,
+                InitialDate = DateTime.Now
+            };
+
+            Session["parentId"] = null;
+            Session["parentId"] = parentId;
+
+            return View("mainCreate",contract);
+        }
+
+        // GET: Contracts/Create
+        /*public ActionResult Create() {
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name");
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+
             return View();
-        }
+        }*/
 
         // POST: Contracts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,InitialDate,EndDate,IsApproved,ParentId,ChildId,ReviewId")] Contract contract)
+        public ActionResult Create([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId")] Contract contract)
         {
-            if (ModelState.IsValid)
-            {
+            return Content("ParentId:" + contract.ParentId + "--" /*parentId*/);
+
+            string parentId = (string) Session["parentId"];
+
+            var institution = db.Institution.Find(User.Identity.GetUserId());
+            contract.Institution = institution;
+            contract.InstitutionId = User.Identity.GetUserId();
+            contract.Approvation = EApprovation.Awaiting;
+            contract.ParentId = parentId;
+            contract.Parent = db.Parent.Find(contract.ParentId);
+
+            if (ModelState.IsValid) {
                 db.Contract.Add(contract);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name", contract.ParentId);
+            //ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             return View(contract);
         }
 
-        // GET: Contracts/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminCreate([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId")] Contract contract) {
+
+            if (ModelState.IsValid) {
+                db.Contract.Add(contract);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
+            return View("Create",contract);
+        }
+
+        [Authorize(Roles = Profiles.Parent)]
+        public ActionResult AcceptContract(int? id) {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var contract = db.Contract.Find(id);
+            if (contract == null) {
+                return Content("It Should not Happen.");
+            }
+            if (contract.Approvation.Equals(EApprovation.Refused) ||
+                contract.Approvation.Equals(EApprovation.Accepted)) {
+                return Content("Contract already resolved");
+            }
+            contract.Approvation = EApprovation.Accepted;
+
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = Profiles.Parent)]
+        public ActionResult RefuseContract(int? id) {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var contract = db.Contract.Find(id);
+            if (contract == null) {
+                return Content("It Should not Happen.");
+            }
+            if (contract.Approvation.Equals(EApprovation.Refused) ||
+                contract.Approvation.Equals(EApprovation.Accepted)) {
+                return Content("Contract already resolved");
+            }
+            contract.Approvation = EApprovation.Refused;
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetChilds(string idParent) {
+
+            return Content("Ccc: ");
+            if (idParent == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var childs = new SelectList(db.Child.Where(p => p.ParentId == idParent), "Id", "Name");
+            return Content("Ccc: " + childs.Count());
+            ViewBag.ChildId = childs;
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+            return View("Create");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetChilds()
         {
-            if (id == null)
-            {
+
+            return Content("Ccc: ");
+        }
+
+        // GET: Contracts/Edit/5
+            public ActionResult Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Contract contract = db.Contract.Find(id);
-            if (contract == null)
-            {
+            if (contract == null) {
                 return HttpNotFound();
             }
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name", contract.ParentId);
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             return View(contract);
         }
@@ -88,30 +216,25 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,InitialDate,EndDate,IsApproved,ParentId,ChildId,ReviewId")] Contract contract)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit([Bind(Include = "Id,InitialDate,EndDate,IsApproved,ParentId,ChildId,ReviewId")] Contract contract) {
+            if (ModelState.IsValid) {
                 db.Entry(contract).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
-            ViewBag.ParentId = new SelectList(db.Users, "Id", "Name", contract.ParentId);
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             return View(contract);
         }
 
         // GET: Contracts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Contract contract = db.Contract.Find(id);
-            if (contract == null)
-            {
+            if (contract == null) {
                 return HttpNotFound();
             }
             return View(contract);
@@ -120,18 +243,15 @@ namespace SpacesForChildren.Controllers
         // POST: Contracts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             Contract contract = db.Contract.Find(id);
             db.Contract.Remove(contract);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

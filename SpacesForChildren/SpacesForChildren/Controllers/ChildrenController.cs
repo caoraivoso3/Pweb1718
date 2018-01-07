@@ -21,13 +21,17 @@ namespace SpacesForChildren.Controllers
         // GET: Children
         public ActionResult Index()
         {
-            var child = db.Child;
             if (User.IsInRole("Pai"))
             {
                 return View(db.Child.Include(c => c.Parent));
+            }
+            //if (User.IsInRole("Instituição"))
+            //{
+                //var id = db.Institution.Find(User.Identity.GetUserId()).Id;
+                //return View(db.Child.Include(c => c.Contracts.Where(c => c.)));
+            //}
 
-            } 
-            return View(child.ToList());
+            return View(db.Child.ToList());
         }
 
 
@@ -87,7 +91,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Children/Delete/5
-        [Authorize(Roles = "Administrador,Pai")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,7 +109,7 @@ namespace SpacesForChildren.Controllers
         // POST: Children/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrador,Pai")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             Child child = db.Child.Find(id);

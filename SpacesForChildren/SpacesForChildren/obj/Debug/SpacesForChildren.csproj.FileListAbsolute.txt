@@ -157,3 +157,10 @@ C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedv3.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.requireddropedv4.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.displayupdatev1.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.addinstitutiontocontract.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.displayname.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.displaynameadddedoncontract.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.displayformatdatafromYYYYtoyyyy.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contractapprovation.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contractapprovationname.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contracteapprovationenum.resources

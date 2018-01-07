@@ -6,40 +6,37 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using Microsoft.AspNet.Identity;
 using SpacesForChildren.Models;
 
-namespace SpacesForChildren.Controllers
-{
-    [Authorize(Roles = "Administrator,Instituição")]
-    public class ServicesController : Controller
-    {
+namespace SpacesForChildren.Controllers {
+    [Authorize]
+    public class ServicesController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Services
         public ActionResult Index()
         {
+            ViewBag.institution = db.Institution.Find(User.Identity.GetUserId());
             return View(db.Service.ToList());
         }
 
         // GET: Services/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Service service = db.Service.Find(id);
-            if (service == null)
-            {
+            if (service == null) {
                 return HttpNotFound();
             }
             return View(service);
         }
 
         // GET: Services/Create
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Create()
-        {
+        [Authorize(Roles = Profiles.Admin)]
+        public ActionResult Create() {
             return View();
         }
 
@@ -48,11 +45,9 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,MinAgeYear,MaxAgeYear,Price")] Service service)
-        {
-            if (ModelState.IsValid)
-            {
+        [Authorize(Roles = Profiles.Admin)]
+        public ActionResult Create([Bind(Include = "Id,Name,Description,MinAgeYear,MaxAgeYear")] Service service) {
+            if (ModelState.IsValid) {
                 db.Service.Add(service);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -60,17 +55,57 @@ namespace SpacesForChildren.Controllers
 
             return View(service);
         }
-
-        // GET: Services/Edit/5
-        public ActionResult Edit(int? id)
+        
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Instituição")]
+        public ActionResult AddService(int? id)
         {
             if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var institution = db.Institution.Find(User.Identity.GetUserId());
+            if (institution == null)
             {
+                return View("Index",db.Service.ToList());
+            }
+            if (ModelState.IsValid)
+            {
+                institution.Services.Add(db.Service.Find(id));
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View("Index",db.Service.ToList());
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Instituição")]
+        public ActionResult RemoveService(int? id) {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var institution = db.Institution.Find(User.Identity.GetUserId());
+            if (institution == null) {
+                return View("Index", db.Service.ToList());
+            }
+            if (ModelState.IsValid) {
+                institution.Services.Remove(db.Service.Find(id));
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View("Index", db.Service.ToList());
+        }
+
+        // GET: Services/Edit/5
+        public ActionResult Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Service service = db.Service.Find(id);
-            if (service == null)
-            {
+            if (service == null) {
                 return HttpNotFound();
             }
             return View(service);
@@ -81,10 +116,8 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,MinAgeYear,MaxAgeYear,Price")] Service service)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,MinAgeYear,MaxAgeYear")] Service service) {
+            if (ModelState.IsValid) {
                 db.Entry(service).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -93,16 +126,13 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Services/Delete/5
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        [Authorize(Roles = Profiles.Admin)]
+        public ActionResult Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Service service = db.Service.Find(id);
-            if (service == null)
-            {
+            if (service == null) {
                 return HttpNotFound();
             }
             return View(service);
@@ -111,19 +141,16 @@ namespace SpacesForChildren.Controllers
         // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        [Authorize(Roles = Profiles.Admin)]
+        public ActionResult DeleteConfirmed(int id) {
             Service service = db.Service.Find(id);
             db.Service.Remove(service);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

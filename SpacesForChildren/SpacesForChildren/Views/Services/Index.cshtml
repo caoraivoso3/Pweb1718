@@ -1,14 +1,14 @@
-﻿@model IEnumerable<SpacesForChildren.Models.Service>
-
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<SpacesForChildren.Models.Service>
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Criar Novo Serviço", "Create")
-</p>
+<h2>Serviços</h2>
+@if (User.IsInRole("Administrador")) {
+    <p>
+        @Html.ActionLink("Criar Novo Serviço", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -23,32 +23,61 @@
         <th>
             @Html.DisplayNameFor(model => model.MaxAgeYear)
         </th>
+        @if (User.IsInRole("Instituição")) {
+            <th>
+                @Html.DisplayName("Disponibiliza Serviço")
+            </th>
+        }
         <th></th>
     </tr>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinAgeYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxAgeYear)
+            </td>
+            @if (User.IsInRole("Instituição")) {
+                if (item.Institutions.Contains(ViewBag.institution)) {
+                    <td>
+                        @Html.CheckBox("Disponibiliza Serviço", true)
+                    </td>
+                }
+                else {
+                    <td>
+                        @Html.CheckBox("Disponibiliza Serviço", false)
+                    </td>
+                }
+            }
+            <td>
+                @if (User.IsInRole("Administrador")) {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                }
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MinAgeYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxAgeYear)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @if (User.IsInRole("Administrador"))
-            {
-                @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
-            }            
-        </td>
-    </tr>
-}
+                @if (User.IsInRole("Administrador")) {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                }
+                @if (User.IsInRole("Instituição") && !item.Institutions.Contains(ViewBag.institution)) {
+                    using (Html.BeginForm()) {
 
+                        @Html.ActionLink("Adicionar Serviço", "AddService", new { id = item.Id })
+                    }
+                }
+                else if(User.IsInRole("Instituição") && item.Institutions.Contains(ViewBag.institution)) {
+                    using (Html.BeginForm()) {
+
+                        @Html.ActionLink("Remover Serviço", "RemoveService", new { id = item.Id })
+                    }
+                }
+            </td>
+        </tr>
+    }
 </table>

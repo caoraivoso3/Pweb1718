@@ -1,24 +1,21 @@
 ﻿@model IEnumerable<SpacesForChildren.Models.RequestInfo>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Pedidos</h2>
-
 <p>
-    @Html.ActionLink("Fazer Novo Pedido", "Create")
+    @if (User.IsInRole("Pai")) {
+        @Html.ActionLink("Fazer Novo Pedido", "Create")
+    }
 </p>
 <table class="table">
     <tr>
-        @if (User.IsInRole("Pai"))
-        {
+        @if (User.IsInRole("Pai") || User.IsInRole("Administrador")) {
             <th>
                 @Html.DisplayNameFor(model => model.Institution.Name)
             </th>
         }
-        @if (User.IsInRole("Instituição"))
-        {
+        @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
             <th>
                 @Html.DisplayNameFor(model => model.Parent.Name)
             </th>
@@ -29,8 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Text)
         </th>
-        @if (User.IsInRole("Instituição"))
-        {
+        @if (User.IsInRole("Instituição")) {
             <th>
                 @Html.DisplayNameFor(model => model.IsAnswered)
             </th>
@@ -40,49 +36,41 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-    @if (User.IsInRole("Pai"))
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.Institution.Name)
-        </td>
+    @foreach (var item in Model) {
+        <tr>
+            @if (User.IsInRole("Pai") || User.IsInRole("Administrador")) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.Name)
+                </td>
+            }
+            @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Parent.Name)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            @if (User.IsInRole("Instituição")) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAnswered)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                @if (User.IsInRole("Instituição") && !item.IsAnswered) {
+                    @Html.ActionLink("Responder", "Edit", new { id = item.Id })
+                }
+                @if (User.IsInRole("Administrador")) {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
     }
-    @if (User.IsInRole("Instituição"))
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.Parent.Name)
-        </td>
-    }
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-    @if (User.IsInRole("Instituição"))
-    {
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAnswered)
-        </td>
-    }
-        <td>
-            @Html.DisplayFor(modelItem => item.Answer)
-        </td>
-        <td>
-        @if (!User.IsInRole("Pai"))
-        {
-            @Html.ActionLink("Editar", "Edit", new {id = item.Id})
-        }
-            @Html.ActionLink("Detalhes", "Details", new {id = item.Id})
-
-        @if (User.IsInRole("Administrador"))
-        {
-            @Html.ActionLink("Eliminar", "Delete", new {id = item.Id})
-        }
-        </td>
-    </tr>
-}
-
 </table>

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 using SpacesForChildren.Models;
 
 namespace SpacesForChildren.Controllers
@@ -38,7 +40,7 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Activities/Create
-        [Authorize(Roles = Profiles.Admin)]
+        [Authorize(Roles = Profiles.Institution)]
         public ActionResult Create()
         {
             ViewBag.InstitutionId = new SelectList(db.Users, "Id", "Name");
@@ -50,9 +52,11 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Profiles.Admin)]
+        [Authorize(Roles = Profiles.Institution)]
         public ActionResult Create([Bind(Include = "Id,Name,Date,Description,InstitutionId")] Activity activity)
         {
+            activity.InstitutionId = db.Institution.Find(User.Identity.GetUserId()).Id;
+            activity.Institution = db.Institution.Find(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
                 db.Activity.Add(activity);
@@ -65,7 +69,6 @@ namespace SpacesForChildren.Controllers
         }
 
         // GET: Activities/Edit/5
-        [Authorize(Roles = Profiles.Admin)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,7 +89,7 @@ namespace SpacesForChildren.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Profiles.Admin)]
+        [Authorize(Roles = Profiles.Admin + "," + Profiles.Institution)]
         public ActionResult Edit([Bind(Include = "Id,Name,Date,Description,InstitutionId")] Activity activity)
         {
             if (ModelState.IsValid)

@@ -12,15 +12,15 @@ namespace SpacesForChildren.Models {
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Texto do Pedido Obrigatório.")]
-        [Display(Name = "Texto")]
+        [Required(ErrorMessage = "Titulo do Pedido Obrigatório.")]
+        [Display(Name = "Titulo")]
         [StringLength(200, ErrorMessage = "O texto não pode ser superior a 200 Carateres.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Data da Atividade Obrigatória.")]
-        [Display(Name = "Data Inicial do Contrato.")]
+        [Display(Name = "Data da Atividade")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/YYYY}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date { get; set; }
 
         [Required(ErrorMessage = "Descrição da Atividade Obrigatória.")]

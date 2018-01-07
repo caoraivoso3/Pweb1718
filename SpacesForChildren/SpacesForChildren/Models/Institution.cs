@@ -27,5 +27,6 @@ namespace SpacesForChildren.Models {
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<RequestInfo> Requests { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<Child> Children { get; set; }
     }
 }
