@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ParentsController.cs" />
     <Compile Include="Controllers\RequestInfoesController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -280,6 +281,18 @@
     <Compile Include="Migrations\201801072020212_contract-price-droped-11.cs" />
     <Compile Include="Migrations\201801072020212_contract-price-droped-11.Designer.cs">
       <DependentUpon>201801072020212_contract-price-droped-11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080203450_contract-review-id-set-to-int-question-mark.cs" />
+    <Compile Include="Migrations\201801080203450_contract-review-id-set-to-int-question-mark.Designer.cs">
+      <DependentUpon>201801080203450_contract-review-id-set-to-int-question-mark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080240433_service-in-contract-from-m-to-1.cs" />
+    <Compile Include="Migrations\201801080240433_service-in-contract-from-m-to-1.Designer.cs">
+      <DependentUpon>201801080240433_service-in-contract-from-m-to-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080253495_service-in-contract-from-m-to-1v2.cs" />
+    <Compile Include="Migrations\201801080253495_service-in-contract-from-m-to-1v2.Designer.cs">
+      <DependentUpon>201801080253495_service-in-contract-from-m-to-1v2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -392,6 +405,13 @@
     <Content Include="Views\Activities\Index.cshtml" />
     <Content Include="Views\Contracts\mainCreate.cshtml" />
     <Content Include="Views\Contracts\CreateAdmin.cshtml" />
+    <Content Include="Views\Contracts\CreateContract.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Reviews\CreateReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -463,6 +483,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801072020212_contract-price-droped-11.resx">
       <DependentUpon>201801072020212_contract-price-droped-11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080203450_contract-review-id-set-to-int-question-mark.resx">
+      <DependentUpon>201801080203450_contract-review-id-set-to-int-question-mark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080240433_service-in-contract-from-m-to-1.resx">
+      <DependentUpon>201801080240433_service-in-contract-from-m-to-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080253495_service-in-contract-from-m-to-1v2.resx">
+      <DependentUpon>201801080253495_service-in-contract-from-m-to-1v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

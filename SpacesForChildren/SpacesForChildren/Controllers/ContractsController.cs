@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using SpacesForChildren.Models;
@@ -18,6 +19,12 @@ namespace SpacesForChildren.Controllers {
         // GET: Contracts
         public ActionResult Index() {
             var contract = db.Contract.Include(c => c.Child).Include(c => c.Parent).Include(c => c.Review);
+
+            if (User.IsInRole("Pai"))
+            {
+                var myId = User.Identity.GetUserId();
+                contract = db.Contract.Include(c => c.Parent).Where(c => c.ParentId == myId);
+            }
 
             return View(contract.ToList());
         }
@@ -34,9 +41,8 @@ namespace SpacesForChildren.Controllers {
             return View(contract);
         }
 
-        
-        public ActionResult mainCreate()
-        {
+
+        public ActionResult mainCreate() {
             ViewBag.ChildId = new List<SelectListItem>()
             {
                 new SelectListItem{Text = "Sem opção", Value = "empty"}
@@ -46,16 +52,15 @@ namespace SpacesForChildren.Controllers {
             {
                 new SelectListItem{Text = "Sem opção", Value = "empty"}
             }; ;/*new SelectList(db.Review, "Id", "Title");*/
+            ViewBag.ServiceId = new SelectList(db.Service, "Id", "Name");
             return View("mainCreate");
         }
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult mainCreate(string parentsId)
-        {
+        public ActionResult mainCreate(string parentsId) {
             string parentId = parentsId;
-            if (parentId == null)
-            {
+            if (parentId == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var parent = db.Parent.Find(parentId);
@@ -65,6 +70,8 @@ namespace SpacesForChildren.Controllers {
             ViewBag.ChildId = new SelectList(child, "Id", "Name");
             ViewBag.ParentId = parentId;
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
+            ViewBag.ServiceId = new SelectList(db.Service, "Id", "Name");
 
             // View
             ViewBag.ParentsId = new SelectList(db.Parent, "Id", "Name");
@@ -77,7 +84,7 @@ namespace SpacesForChildren.Controllers {
             Session["parentId"] = null;
             Session["parentId"] = parentId;
 
-            return View("mainCreate",contract);
+            return View("mainCreate", contract);
         }
 
         // GET: Contracts/Create
@@ -92,11 +99,11 @@ namespace SpacesForChildren.Controllers {
         // POST: Contracts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        /*public ActionResult Create([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId,ReviewId,Approvation")] Contract contract)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,InitialDate,ParentId,ChildId,ServiceId")] Contract contract)
         {
-            return Content("ParentId:" + contract.ParentId + "--" parentId);
+            return Content("ParentId:" + contract.ParentId + "--");
 
             string parentId = (string) Session["parentId"];
 
@@ -117,36 +124,43 @@ namespace SpacesForChildren.Controllers {
             //ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             return View(contract);
-        }*/
-        //[HttpPost]
-        public ActionResult CreateContract(DateTime InitialDate, DateTime EndDate, string ParentId, int ChildId)
-        {
-            return Content("Biew");
         }
 
-        public ActionResult CreateAdmin() {
+
+        public ActionResult CreateContract()
+        {
+
+            var institution = db.Institution.Find(User.Identity.GetUserId());
 
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name");
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
-            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
-            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
-            return View("CreateAdmin");
+            //ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+            //ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
+            ViewBag.ServiceId = new SelectList(db.Service.Where(i => i.Institutions.Any(w => w.Id == institution.Id)).ToList(), "Id", "Name");
+            return View("CreateContract");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAdmin([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId,InstitutionId")] Contract contract)
-        {
+        public ActionResult CreateContract([Bind(Include = "Id,InitialDate,ParentId,ChildId,ServiceId")] Contract contract) {
+
+            //return Content("ParentId:" + contract.ParentId);
 
             contract.Institution = db.Institution.Find(contract.InstitutionId);
             contract.Child = db.Child.Find(contract.ChildId);
             contract.Parent = db.Parent.Find(contract.ParentId);
+            contract.Approvation = EApprovation.Awaiting;
+            contract.Service = db.Service.Find(contract.ServiceId);
+            contract.EndDate = contract.InitialDate.Value.AddYears(1);
+            //contract.Review = null;
+            //contract.ReviewId = null;
 
             if (ModelState.IsValid) {
                 db.Contract.Add(contract);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            /*
             else
             {
                 string messages = string.Join("; ", ModelState.Values
@@ -154,16 +168,71 @@ namespace SpacesForChildren.Controllers {
                     .Select(x => x.ErrorMessage));
                 return Content(messages);
             }
+            */
+            var institution = db.Institution.Find(User.Identity.GetUserId());
+            ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Title", contract.InstitutionId);
+            ViewBag.ReviewSelection = new SelectList(db.Service.Where(i => i.Institutions.Any(w => w.Id == institution.Id)).ToList(), "Id", "Name");
+            return View("CreateContract", contract);
+        }
+
+        //[HttpPost]
+        /*public ActionResult CreateContract(DateTime InitialDate, DateTime EndDate, int? ChildId) {
+            return Content("Biew");
+        }
+        */
+        [Authorize(Roles = "Administrador")]
+        public ActionResult CreateAdmin() {
+
+            ViewBag.ChildId = new SelectList(db.Child, "Id", "Name");
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
+            ViewBag.ServiceId = new SelectList(db.Service, "Id", "Name");
+            return View("CreateAdmin");
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAdmin([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId,InstitutionId,ServiceId")] Contract contract) {
+
+            contract.Institution = db.Institution.Find(contract.InstitutionId);
+            contract.Child = db.Child.Find(contract.ChildId);
+            contract.Parent = db.Parent.Find(contract.ParentId);
+            contract.Approvation = EApprovation.Awaiting;
+            contract.Service = db.Service.Find(contract.ServiceId);
+            //contract.Review = null;
+            //contract.ReviewId = null;
+
+            if (ModelState.IsValid) {
+                db.Contract.Add(contract);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            /*
+            else
+            {
+                string messages = string.Join("; ", ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage));
+                return Content(messages);
+            }
+            */
 
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Title", contract.InstitutionId);
-            return View("CreateAdmin",contract);
+            ViewBag.ReviewSelection = new SelectList(db.Service, "Id", "Name");
+            return View("CreateAdmin", contract);
         }
+
 
         [Authorize(Roles = Profiles.Parent)]
         public ActionResult AcceptContract(int? id) {
+
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -175,8 +244,13 @@ namespace SpacesForChildren.Controllers {
                 contract.Approvation.Equals(EApprovation.Accepted)) {
                 return Content("Contract already resolved");
             }
-            contract.Approvation = EApprovation.Accepted;
 
+            contract.Approvation = EApprovation.Accepted;
+            if (ModelState.IsValid) {
+                db.Entry(contract).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
             return RedirectToAction("Index");
         }
@@ -195,6 +269,11 @@ namespace SpacesForChildren.Controllers {
                 return Content("Contract already resolved");
             }
             contract.Approvation = EApprovation.Refused;
+            if (ModelState.IsValid) {
+                db.Entry(contract).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
             return RedirectToAction("Index");
         }
@@ -217,14 +296,13 @@ namespace SpacesForChildren.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GetChilds()
-        {
+        public ActionResult GetChilds() {
 
             return Content("Ccc: ");
         }
 
         // GET: Contracts/Edit/5
-            public ActionResult Edit(int? id) {
+        public ActionResult Edit(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

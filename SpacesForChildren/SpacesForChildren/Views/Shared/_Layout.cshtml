@@ -23,25 +23,25 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Instituições", "Index", "Institutions")</li>
-           @if (User.IsInRole("Pai")) 
-           {
+                    @if (User.IsInRole("Pai")) {
                 <li>@Html.ActionLink("Filhos", "Index", "Children")</li>
                 <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
                 <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
-           }
-           @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) 
-           {
+                <li>@Html.ActionLink("Avaliações", "Index", "Reviews")</li>
+}
+                    @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
+
                 <li>@Html.ActionLink("Contratos", "Index", "Contracts")</li>
                 <li>@Html.ActionLink("Crianças", "Index", "Children")</li>
                 <li>@Html.ActionLink("Atividades", "Index", "Activities")</li>
                 <li>@Html.ActionLink("Pedidos", "Index", "RequestInfoes")</li>
                 <li>@Html.ActionLink("Serviços", "Index", "Services")</li>
-           }
-           @if (!User.IsInRole("Instituição") && !User.IsInRole("Administrador"))
-           {
-               <li>@Html.ActionLink("Sobre nós", "About", "Home")</li>
-               <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>   
-           }
+                <li>@Html.ActionLink("Avaliações", "Index", "Reviews")</li>
+}
+                    @if (!User.IsInRole("Instituição") && !User.IsInRole("Administrador")) {
+                <li>@Html.ActionLink("Sobre nós", "About", "Home")</li>
+                <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
+}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

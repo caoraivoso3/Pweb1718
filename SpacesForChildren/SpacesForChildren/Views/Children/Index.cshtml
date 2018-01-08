@@ -52,10 +52,10 @@ else if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Nome do Pai")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Filho")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Gender)
@@ -68,7 +68,7 @@ else if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Parent)
+                    @Html.DisplayFor(modelItem => item.Parent.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)

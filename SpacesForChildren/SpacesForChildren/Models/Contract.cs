@@ -41,6 +41,9 @@ namespace SpacesForChildren.Models {
         [Display(Name = "Instituição")]
         public virtual Institution Institution { get; set; }
 
+        [Display(Name = "Serviço")]
+        public virtual Service Service { get; set; }
+
         [ForeignKey("Institution")]
         [Display(Name = "Instituição")]
         public string InstitutionId { get; set; }
@@ -54,9 +57,10 @@ namespace SpacesForChildren.Models {
 
         [ForeignKey("Review")]
         [Display(Name = "Comentário")]
-        public int ReviewId { get; set; }
+        public int? ReviewId { get; set; }
 
-        public virtual ICollection<Service> Services { get; set; }
-
+        [ForeignKey("Service")]
+        [Display(Name = "Serviço")]
+        public int ServiceId { get; set; }
     }
 }

@@ -3,9 +3,11 @@
     ViewBag.Title = "Index";
 }
 <h2>Atividades</h2>
-<p>
-    @Html.ActionLink("Criar Atividade", "Create")
-</p>
+@if (User.IsInRole("Instituição")) {
+    <p>
+        @Html.ActionLink("Criar Atividade", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         @if (!User.IsInRole("Instituição")) {
@@ -43,9 +45,9 @@
             <td>
                 @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <span> | </span>
-                    @Html.ActionLink("Eliminar", "Delete", new {id = item.Id})
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
                 }
             </td>
         </tr>
-}
+    }
 </table>

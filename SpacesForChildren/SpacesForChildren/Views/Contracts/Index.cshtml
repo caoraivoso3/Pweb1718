@@ -1,11 +1,17 @@
-﻿@model IEnumerable<SpacesForChildren.Models.Contract>
+﻿@using SpacesForChildren.Models
+@model IEnumerable<SpacesForChildren.Models.Contract>
 @{
     ViewBag.Title = "Index";
 }
 <h2>Contratos</h2>
 @if (User.IsInRole("Instituição")) {
     <p>
-        @Html.ActionLink("Criar Novo Contrato", "mainCreate")
+        @Html.ActionLink("Criar Novo Contrato", "CreateContract")
+    </p>
+}
+else if (User.IsInRole("Administrador")) {
+    <p>
+        @Html.ActionLink("Criar Novo Contrato", "CreateAdmin")
     </p>
 }
 
@@ -14,9 +20,15 @@
         <th>
             @Html.DisplayName("Criança")
         </th>
+
         @if (!User.IsInRole("Pai")) {
             <th>
                 @Html.DisplayName("Pai")
+            </th>
+        }
+        @if (User.IsInRole("Pai")) {
+            <th>
+                @Html.DisplayName("Instituição")
             </th>
         }
         @*<th>
@@ -32,6 +44,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Approvation)
         </th>
+        <th>
+            @Html.DisplayName("Serviço")
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model) {
@@ -42,6 +57,11 @@
             @if (!User.IsInRole("Pai")) {
                 <td>
                     @Html.DisplayFor(modelItem => item.Parent.Name)
+                </td>
+            }
+            @if (User.IsInRole("Pai")) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution.Name)
                 </td>
             }
             @*
@@ -59,11 +79,14 @@
                 @Html.DisplayFor(modelItem => item.Approvation)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Service.Name)
+            </td>
+            <td>
                 @if (User.IsInRole("Administrador")) {
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id })
                 }
-                @if (User.IsInRole("Pai") && item.Approvation.Equals("Aguardando Aprovação")) {
-                    @Html.ActionLink("Aceitar", "AcceptContract", new { id = item.Id })
+                @if (User.IsInRole("Pai") && item.Approvation.Equals(EApprovation.Awaiting)) {
+                    @Html.ActionLink("Aceitar", "AcceptContract", new { id = item.Id }) <span> - </span>
                     @Html.ActionLink("Recusar", "RefuseContract", new { id = item.Id })
                 }
                 @if (User.IsInRole("Administrador")) {
