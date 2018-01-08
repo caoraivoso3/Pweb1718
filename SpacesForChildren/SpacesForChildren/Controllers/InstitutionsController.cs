@@ -29,22 +29,29 @@ namespace SpacesForChildren.Controllers
                 new SelectListItem { Text = "4", Value = "4" },
                 new SelectListItem { Text = "5", Value = "5" }
             };
-            ViewBag.CityListItems = new SelectList(db.Institution, "Id", "City");
+            //ViewBag.CityListItems = new SelectList(db.Institution, "Id", "City");
         }
 
         // GET: Institutions
         public ActionResult Index()
         {
             PopulateSearchViewBags();
-            return View(db.Institution.ToList());
+            if (User.IsInRole("Administrador") || User.IsInRole("Instituição"))
+            {
+                return View(db.Institution.ToList());
+            }
+
+
+
+            return View(db.Institution.Where(i => i.IsApproved).ToList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string CityListItems, int? RankingListItems)
+        public ActionResult Index(string location, int? RankingListItems)
         {
+            
             //int ranking = Int32.Parse(ViewBag.RankingListItems);
-            string location = CityListItems;
             int? ranking = RankingListItems;
             /*if (!location.IsNullOrWhiteSpace() && ranking != null)
             {
@@ -57,7 +64,8 @@ namespace SpacesForChildren.Controllers
             {
                 PopulateSearchViewBags();
                 return View(db.Institution
-                    .Where(i => i.Id == location).ToList());
+                    .Where(i => i.City.Equals(location, StringComparison.InvariantCultureIgnoreCase))
+                    .Where(i => i.IsApproved).ToList());
             }
             
             return Index();

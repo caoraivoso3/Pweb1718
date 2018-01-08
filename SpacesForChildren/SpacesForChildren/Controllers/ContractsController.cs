@@ -92,11 +92,11 @@ namespace SpacesForChildren.Controllers {
         // POST: Contracts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId")] Contract contract)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        /*public ActionResult Create([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId,ReviewId,Approvation")] Contract contract)
         {
-            return Content("ParentId:" + contract.ParentId + "--" /*parentId*/);
+            return Content("ParentId:" + contract.ParentId + "--" parentId);
 
             string parentId = (string) Session["parentId"];
 
@@ -117,22 +117,49 @@ namespace SpacesForChildren.Controllers {
             //ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             return View(contract);
+        }*/
+        //[HttpPost]
+        public ActionResult CreateContract(DateTime InitialDate, DateTime EndDate, string ParentId, int ChildId)
+        {
+            return Content("Biew");
+        }
+
+        public ActionResult CreateAdmin() {
+
+            ViewBag.ChildId = new SelectList(db.Child, "Id", "Name");
+            ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
+            ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
+            return View("CreateAdmin");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AdminCreate([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId")] Contract contract) {
+        public ActionResult CreateAdmin([Bind(Include = "Id,InitialDate,EndDate,ParentId,ChildId,InstitutionId")] Contract contract)
+        {
+
+            contract.Institution = db.Institution.Find(contract.InstitutionId);
+            contract.Child = db.Child.Find(contract.ChildId);
+            contract.Parent = db.Parent.Find(contract.ParentId);
 
             if (ModelState.IsValid) {
                 db.Contract.Add(contract);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                string messages = string.Join("; ", ModelState.Values
+                    .SelectMany(x => x.Errors)
+                    .Select(x => x.ErrorMessage));
+                return Content(messages);
+            }
 
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
-            return View("Create",contract);
+            ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Title", contract.InstitutionId);
+            return View("CreateAdmin",contract);
         }
 
         [Authorize(Roles = Profiles.Parent)]

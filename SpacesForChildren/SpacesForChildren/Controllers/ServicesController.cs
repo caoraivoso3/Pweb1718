@@ -18,7 +18,10 @@ namespace SpacesForChildren.Controllers {
         // GET: Services
         public ActionResult Index()
         {
-            ViewBag.institution = db.Institution.Find(User.Identity.GetUserId());
+            if (User.IsInRole("Instituição"))
+            {
+                ViewBag.institution = db.Institution.Find(User.Identity.GetUserId());
+            }
             return View(db.Service.ToList());
         }
 

@@ -12,12 +12,12 @@
     <tr>
         @if (User.IsInRole("Pai") || User.IsInRole("Administrador")) {
             <th>
-                @Html.DisplayNameFor(model => model.Institution.Name)
+                @Html.DisplayName("Pai")
             </th>
         }
         @if (User.IsInRole("Instituição") || User.IsInRole("Administrador")) {
             <th>
-                @Html.DisplayNameFor(model => model.Parent.Name)
+                @Html.DisplayName("Instituição")
             </th>
         }
         <th>
@@ -67,7 +67,7 @@
                     @Html.ActionLink("Responder", "Edit", new { id = item.Id })
                 }
                 @if (User.IsInRole("Administrador")) {
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) <span> - </span>
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
                 }
             </td>

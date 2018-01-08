@@ -2,9 +2,7 @@
 @{
     ViewBag.Title = "Registar";
 }
-
 <h2>@ViewBag.Title</h2>
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
     <h4>Criar Nova Conta de Utilizador</h4>
@@ -62,11 +60,11 @@
     <div class="form-group">
         @Html.Label("Perfil", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownList("Profile", null, null, new { @class = "form-control" , @onchange = "roleFunction(this.value)" })
+            @Html.DropDownList("Profile", null, null, new { @class = "form-control", @onchange = "roleFunction(this.value)" })
         </div>
     </div>
 
-    
+
     <div id="institution-register-forms">
         <div class="form-group">
             @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
@@ -93,7 +91,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Registar" class="btn btn-default" />
@@ -105,7 +103,7 @@
         function roleFunction(role) {
             if (role === "Instituição")
                 institutionRoleFunction();
-            else if(role === "Pai")
+            else if (role === "Pai")
                 parentRoleFunction();
 
         }
@@ -125,7 +123,6 @@
         }
     </script>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -3,11 +3,12 @@
     ViewBag.Title = "Index";
 }
 <h2>Contratos</h2>
-@if (!User.IsInRole("Pai")) {
+@if (User.IsInRole("Instituição")) {
     <p>
         @Html.ActionLink("Criar Novo Contrato", "mainCreate")
     </p>
 }
+
 <table class="table">
     <tr>
         <th>

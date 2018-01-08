@@ -6,14 +6,22 @@
 <h3>Pesquisar</h3>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
+    /*
     <div class="form-group">
         @Html.Label("Cidade", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownList("CityListItems", null, new { @class = "form-control" })
         </div>
     </div>
+    */
+    <div class="form-group">
+        @Html.Label("Localidade", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBox("location", null, new { @class = "form-control" })
+        </div>
+    </div>
     <br />
-    <br />
+    <br /> 
     <div class="form-group">
         @Html.Label("Ranking", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -51,9 +59,11 @@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </th>
+        @if (User.IsInRole("Administrador")) {
+            <th>
+                @Html.DisplayNameFor(model => model.IsApproved)
+            </th>
+        }
         <th></th>
     </tr>
     @foreach (var item in Model) {
@@ -76,9 +86,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
+            @if (User.IsInRole("Administrador")) {
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsApproved)
+                </td>
+            }
             @if (User.IsInRole("Administrador")) {
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

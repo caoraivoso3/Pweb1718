@@ -164,3 +164,4 @@ C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contractapprovation.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contractapprovationname.resources
 C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contracteapprovationenum.resources
+C:\Users\rafa\Documents\GitHub\Pweb1718\SpacesForChildren\SpacesForChildren\obj\Debug\SpacesForChildren.Migrations.contractpricedroped11.resources

@@ -24,11 +24,6 @@ namespace SpacesForChildren.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
-        [Required(ErrorMessage = "Preço dos Serviços Obrigatório.")]
-        [Display(Name = "Preço dos Serviços")]
-        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Avaliação tem de ser Numérica.")]
-        public int TotalPrice;
-
         [Display(Name = "Aprovação do Cliente")]
         public EApprovation Approvation { get; set; }    
 

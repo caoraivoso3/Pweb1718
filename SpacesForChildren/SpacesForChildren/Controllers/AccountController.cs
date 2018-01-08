@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -62,6 +63,18 @@ namespace SpacesForChildren.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
+
+            var institution = db.Institution.Where(i => i.Email.Equals(model.Email));
+
+            IEnumerator enumerator = institution.GetEnumerator();
+            if (enumerator.MoveNext()) {
+                var i = (Institution)enumerator.Current;
+                if (!i.IsApproved) {
+                    ViewBag.Message = "Sujeito a aprovação do Administrador. Para mais informações contacte-nos.";
+                    return View(model);
+                }
+            }
+
             if (!ModelState.IsValid) {
                 return View(model);
             }
@@ -125,27 +138,23 @@ namespace SpacesForChildren.Controllers {
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register() {
-            ViewBag.Profile = new SelectList(db.Roles, "Name","Name");
+            ViewBag.Profile = new SelectList(db.Roles, "Name", "Name");
             return View();
         }
-            
+
         //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
+        public async Task<ActionResult> Register(RegisterViewModel model) {
 
             string profileSelected = Request.Form["Profile"];
             var user = new ApplicationUser();
 
-            if (ModelState.IsValid)
-            {
-                if (profileSelected == Profiles.Parent)
-                {
-                    Parent parent = new Parent
-                    {
+            if (ModelState.IsValid) {
+                if (profileSelected == Profiles.Parent) {
+                    Parent parent = new Parent {
                         UserName = model.Email,
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
@@ -160,10 +169,8 @@ namespace SpacesForChildren.Controllers {
                     db.Parent.Add(parent);
                     user = parent;
                 }
-                else if (profileSelected == Profiles.Institution)
-                {
-                    Institution institution = new Institution
-                    {
+                else if (profileSelected == Profiles.Institution) {
+                    Institution institution = new Institution {
                         UserName = model.Email,
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
@@ -181,8 +188,7 @@ namespace SpacesForChildren.Controllers {
                     db.Institution.Add(institution);
                     user = institution;
                 }
-                else
-                {
+                else {
                     throw new Exception("Role Should be Select");
                 }
                 /*
