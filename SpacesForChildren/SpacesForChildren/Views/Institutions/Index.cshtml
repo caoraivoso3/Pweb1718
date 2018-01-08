@@ -101,7 +101,7 @@
             @Html.ActionLink("Descrição", "Details", new { id = item.Id })
         </td>
         <td>
-            @Html.ActionLink("Avaliações", "Index", "Reviews",null, new { id = item.Id })
+            @Html.ActionLink("Avaliações", "IndexFilteredByInstitution", "Reviews",new { InstitutionId = item.Id }, null)
         </td>
     </tr>
     }

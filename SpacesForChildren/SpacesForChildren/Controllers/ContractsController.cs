@@ -113,6 +113,7 @@ namespace SpacesForChildren.Controllers {
             contract.Approvation = EApprovation.Awaiting;
             contract.ParentId = parentId;
             contract.Parent = db.Parent.Find(contract.ParentId);
+            contract.Evaluated = false;
 
             if (ModelState.IsValid) {
                 db.Contract.Add(contract);
@@ -136,7 +137,9 @@ namespace SpacesForChildren.Controllers {
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name");
             //ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title");
             //ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Name");
-            ViewBag.ServiceId = new SelectList(db.Service.Where(i => i.Institutions.Any(w => w.Id == institution.Id)).ToList(), "Id", "Name");
+            ViewBag.ServiceId = new SelectList(db.Service.Include(i => i.Institutions)
+                .Where(i => i.Institutions.Any(w => w.Id == institution.Id))
+                .ToList(), "Id", "Name");
             return View("CreateContract");
         }
 
@@ -145,20 +148,27 @@ namespace SpacesForChildren.Controllers {
         public ActionResult CreateContract([Bind(Include = "Id,InitialDate,ParentId,ChildId,ServiceId")] Contract contract) {
 
             //return Content("ParentId:" + contract.ParentId);
+            var institution = db.Institution.Find(User.Identity.GetUserId());
 
-            contract.Institution = db.Institution.Find(contract.InstitutionId);
-            contract.Child = db.Child.Find(contract.ChildId);
-            contract.Parent = db.Parent.Find(contract.ParentId);
-            contract.Approvation = EApprovation.Awaiting;
-            contract.Service = db.Service.Find(contract.ServiceId);
-            contract.EndDate = contract.InitialDate.Value.AddYears(1);
-            //contract.Review = null;
-            //contract.ReviewId = null;
+            if (institution != null && contract.InitialDate != null)
+            {
+                contract.InstitutionId = institution.Id;
+                contract.Institution = db.Institution.Find(institution.Id);
+                contract.Child = db.Child.Find(contract.ChildId);
+                contract.Parent = db.Parent.Find(contract.ParentId);
+                contract.Approvation = EApprovation.Awaiting;
+                contract.Service = db.Service.Find(contract.ServiceId);
+                contract.EndDate = contract.InitialDate.Value.AddYears(1);
+                contract.Evaluated = false;
+                //contract.Review = null;
+                //contract.ReviewId = null;
 
-            if (ModelState.IsValid) {
-                db.Contract.Add(contract);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Contract.Add(contract);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             /*
             else
@@ -169,12 +179,14 @@ namespace SpacesForChildren.Controllers {
                 return Content(messages);
             }
             */
-            var institution = db.Institution.Find(User.Identity.GetUserId());
+            institution = db.Institution.Find(User.Identity.GetUserId());
             ViewBag.ChildId = new SelectList(db.Child, "Id", "Name", contract.ChildId);
             ViewBag.ParentId = new SelectList(db.Parent, "Id", "Name", contract.ParentId);
             ViewBag.ReviewId = new SelectList(db.Review, "Id", "Title", contract.ReviewId);
             ViewBag.InstitutionId = new SelectList(db.Institution, "Id", "Title", contract.InstitutionId);
-            ViewBag.ReviewSelection = new SelectList(db.Service.Where(i => i.Institutions.Any(w => w.Id == institution.Id)).ToList(), "Id", "Name");
+            ViewBag.ReviewSelection = new SelectList(db.Service.Include(i => i.Institutions)
+                .Where(i => i.Institutions.Any(w => w.Id == institution.Id))
+                .ToList(), "Id", "Name"); 
             return View("CreateContract", contract);
         }
 
@@ -203,6 +215,7 @@ namespace SpacesForChildren.Controllers {
             contract.Parent = db.Parent.Find(contract.ParentId);
             contract.Approvation = EApprovation.Awaiting;
             contract.Service = db.Service.Find(contract.ServiceId);
+            contract.Evaluated = false;
             //contract.Review = null;
             //contract.ReviewId = null;
 

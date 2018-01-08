@@ -21,6 +21,18 @@ namespace SpacesForChildren.Controllers
             return View(review.ToList());
         }
 
+        public ActionResult IndexFilteredByInstitution(string InstitutionId)
+        {
+            if (InstitutionId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var review = db.Review.Include(r => r.Institution).Where(c => c.InstitutionId == InstitutionId);
+
+            return View("Index",review.ToList());
+        }
+
         // GET: Reviews/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,14 +50,23 @@ namespace SpacesForChildren.Controllers
 
         // GET: Reviews/Create
         [Authorize(Roles = "Pai")]
-        public ActionResult CreateReview(int? InstitutionId)
+        public ActionResult CreateReview(string InstitutionId, int? ContractId)
         {
-            if (InstitutionId == null)
+            if (InstitutionId == null || ContractId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //ViewBag.InstitutionId = new SelectList(db.Users, "Id", "Name");
+            ViewBag.ContractId = ContractId;
             ViewBag.InstitutionId = InstitutionId;
+            ViewBag.Ranking = ViewBag.RankingListItems = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "1", Value = "1" },
+                new SelectListItem { Text = "2", Value = "2" },
+                new SelectListItem { Text = "3", Value = "3" },
+                new SelectListItem { Text = "4", Value = "4" },
+                new SelectListItem { Text = "5", Value = "5" }
+            };
             return View("CreateReview");
         }
 
@@ -55,12 +76,13 @@ namespace SpacesForChildren.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Pai")]
-        public ActionResult CreateReview([Bind(Include = "Id,Title,Text,Ranking,InstitutionId")] Review review)
+        public ActionResult CreateReview([Bind(Include = "Id,Title,Text,Ranking,InstitutionId")] Review review, int? ContractId)
         {
 
             if (ModelState.IsValid)
             {
                 db.Review.Add(review);
+                db.Contract.Find(ContractId).Evaluated = true;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

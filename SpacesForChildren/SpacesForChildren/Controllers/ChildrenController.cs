@@ -23,13 +23,9 @@ namespace SpacesForChildren.Controllers
         {
             if (User.IsInRole("Pai"))
             {
-                return View(db.Child.Include(c => c.Parent));
+                var parentId = User.Identity.GetUserId();
+                return View(db.Child.Include(c => c.Parent).Where(c => c.ParentId == parentId));
             }
-            //if (User.IsInRole("Instituição"))
-            //{
-                //var id = db.Institution.Find(User.Identity.GetUserId()).Id;
-                //return View(db.Child.Include(c => c.Contracts.Where(c => c.)));
-            //}
 
             return View(db.Child.ToList());
         }

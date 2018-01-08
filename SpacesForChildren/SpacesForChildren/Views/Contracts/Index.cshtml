@@ -89,10 +89,12 @@ else if (User.IsInRole("Administrador")) {
                     @Html.ActionLink("Aceitar", "AcceptContract", new { id = item.Id }) <span> - </span>
                     @Html.ActionLink("Recusar", "RefuseContract", new { id = item.Id })
                 }
+                @if (User.IsInRole("Pai") && DateTime.Now > item.EndDate && item.Evaluated == false) {
+                    @Html.ActionLink("Adicionar Avaliação", "CreateReview","Reviews", new { InstitutionId = item.Institution.Id, ContractId = item.Id },null)
+                }
                 @if (User.IsInRole("Administrador")) {
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
                 }
-
             </td>
         </tr>
     }

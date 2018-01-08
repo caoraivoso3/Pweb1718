@@ -25,7 +25,10 @@ namespace SpacesForChildren.Models {
         public DateTime? EndDate { get; set; }
 
         [Display(Name = "Aprovação do Cliente")]
-        public EApprovation Approvation { get; set; }    
+        public EApprovation Approvation { get; set; }
+
+        [Display(Name = "Avaliado pelo Cliente")]
+        public bool Evaluated { get; set; }
 
         //[Required(ErrorMessage = "Obrigatório adicionar Filho.")]
         [Display(Name = "Filho")]
